@@ -1,0 +1,44 @@
+Création du projet : 
+
+    npm init
+
+Installation des dépendances pour coder en typescript plutôt quand javascript : 
+
+    npm i --save-dev typescript nodemon concurrently @types/node
+
+Une fois TypeScript d'installation il faut créer un fichier de configuration (tsconfig.json) pour lui dire ou et comment compiler nos fichiers typescript 
+
+    {
+        // Nous permet d'éviter de mettre les options de la commande tsc 
+        "compilerOptions": { 
+            "module": "commonjs",
+            "esModuleInterop": true,
+            "outDir": "dist", 
+            "target": "es6",
+            "strict": true
+        },
+        // Ou se situe les fichiers TypeScript à compiler
+        "include": [
+            "src/**/*"
+        ],
+        // Les fichiers qu'on vuet exclure de la compilation
+        "exclude": [
+            "node_modules", // Dépendances nodejs
+            "**/*.spec.ts" // Fichier de test
+        ]
+    }
+
+On créé un script dans package.json qui va nous permettre lancer la compilation à chaque modification des fichiers TypeScript
+
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev" : "concurrently -k -n \"Typescript,Node\" -p \"[{name}]\" -c \"blue,green\" \"tsc --watch\" \"nodemon dist/index.js\""
+    }
+
+On lançant à la racine du projet : npm run dev, il exécutera le contenu de dev
+
+Installation de express
+
+    npm install express @types/express 
+
+    On ajoute @types/express pour télécharger la définition que TypeScript à besoin
